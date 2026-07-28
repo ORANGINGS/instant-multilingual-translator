@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>即時多語朗讀翻譯</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="logo" aria-hidden="true">A</div>
+        <div>
+          <h1>即時多語朗讀翻譯</h1>
+          <p>反白文字後自動朗讀與翻譯</p>
+        </div>
+      </header>
+
+      <section class="language-panel" aria-label="語言設定">
+        <label class="select-setting">
+          <span>
+            <strong>預設來源語言</strong>
+            <small>可自動辨識英文、西班牙文及其他語言</small>
+          </span>
+          <select id="sourceLanguage" aria-label="預設來源語言"></select>
+        </label>
+
+        <div class="language-direction" aria-hidden="true">↓</div>
+
+        <label class="select-setting">
+          <span>
+            <strong>翻譯成</strong>
+            <small>反白後顯示的目標語言</small>
+          </span>
+          <select id="targetLanguage" aria-label="翻譯目標語言"></select>
+        </label>
+      </section>
+
+      <section class="settings">
+        <label class="setting-row">
+          <span>
+            <strong>啟用擴充功能</strong>
+            <small>在一般網頁偵測反白文字</small>
+          </span>
+          <input id="enabled" type="checkbox" />
+        </label>
+
+        <label class="setting-row">
+          <span>
+            <strong>自動播放原文</strong>
+            <small>依來源語言選擇對應語音</small>
+          </span>
+          <input id="autoSpeak" type="checkbox" />
+        </label>
+
+        <label class="setting-row">
+          <span>
+            <strong>線上多義詞與備援</strong>
+            <small>查詢其他意思；本機翻譯失敗時也使用</small>
+          </span>
+          <input id="onlineFallback" type="checkbox" />
+        </label>
+
+        <label class="select-setting compact-setting">
+          <span>
+            <strong>外觀</strong>
+            <small>套用到設定頁與浮動翻譯視窗</small>
+          </span>
+          <select id="theme" aria-label="外觀模式">
+            <option value="system">跟隨系統</option>
+            <option value="light">淺色模式</option>
+            <option value="dark">深色模式</option>
+          </select>
+        </label>
+
+        <div class="rate-setting">
+          <div class="rate-heading">
+            <span>
+              <strong>朗讀語速</strong>
+              <small>較慢適合練習發音</small>
+            </span>
+            <output id="rateValue">0.90×</output>
+          </div>
+          <input
+            id="speechRate"
+            type="range"
+            min="0.60"
+            max="1.30"
+            step="0.05"
+            value="0.90"
+          />
+        </div>
+      </section>
+
+      <button id="testVoice" class="test-button" type="button">
+        🔊 試播 forecast
+      </button>
+
+      <p id="languageWarning" class="warning" hidden>
+        來源語言與目標語言相同，反白後只會朗讀，不會翻譯。
+      </p>
+
+      <p class="notice">
+        首次使用可能需要下載 Chrome 本機語言辨識或翻譯模型。開啟線上多義詞後，短單字與片語會傳送至翻譯服務查詢其他意思。
+      </p>
+
+      <div id="saved" class="saved" role="status" aria-live="polite"></div>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

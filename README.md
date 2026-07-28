@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/app-icon.png" width="160" alt="即時多語朗讀翻譯圖示">
+  <img src="icons/icon128.png" width="128" alt="即時多語朗讀翻譯圖示">
 </p>
 
 <h1 align="center">即時多語朗讀翻譯</h1>
@@ -21,19 +21,6 @@
 這是一款為語言學習與快速閱讀設計的 Chrome 擴充功能。使用者只要雙擊單字，或拖曳選取片語與句子，就能在原文字旁開啟翻譯卡片，同時播放發音、查看主要翻譯及其他常見意思。
 
 擴充功能預設會自動辨識來源語言，也能固定使用英文、西班牙文、日文等語言，並自由選擇翻譯目標語言。介面支援淺色、深色與跟隨系統模式，且不需要購買 API Key。
-
-## 操作畫面
-
-<table>
-  <tr>
-    <td align="center"><strong>淺色模式</strong></td>
-    <td align="center"><strong>深色模式</strong></td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshot-light.png" alt="淺色翻譯視窗"></td>
-    <td><img src="docs/screenshot-dark.png" alt="深色翻譯視窗"></td>
-  </tr>
-</table>
 
 ## 主要功能
 
@@ -141,10 +128,6 @@ git clone https://github.com/ORANGINGS/instant-multilingual-translator.git
 ```text
 instant-multilingual-translator/
 ├─ .github/ISSUE_TEMPLATE/
-├─ docs/
-│  ├─ app-icon.png
-│  ├─ screenshot-light.png
-│  └─ screenshot-dark.png
 ├─ icons/
 │  ├─ icon16.png
 │  ├─ icon32.png
