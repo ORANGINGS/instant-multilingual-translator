@@ -38,7 +38,7 @@ const DEFAULTS = {
 const elements = Object.fromEntries([
   "enabled", "autoSpeak", "onlineFallback", "sourceLanguage",
   "targetLanguage", "theme", "speechRate", "rateValue",
-  "testVoice", "languageWarning", "saved"
+  "testVoice", "languageWarning", "saved", "powerStatus", "disabledBanner"
 ].map((id) => [id, document.getElementById(id)]));
 const darkMedia = matchMedia("(prefers-color-scheme: dark)");
 
@@ -57,7 +57,11 @@ async function initialize() {
   elements.speechRate.value = String(settings.speechRate);
   refresh();
 
-  for (const id of ["enabled", "autoSpeak", "onlineFallback"]) {
+  elements.enabled.addEventListener("change", () => {
+    updatePowerState();
+    save(elements.enabled.checked ? "擴充功能已開啟" : "擴充功能已關閉");
+  });
+  for (const id of ["autoSpeak", "onlineFallback"]) {
     elements[id].addEventListener("change", save);
   }
   elements.sourceLanguage.addEventListener("change", () => { refresh(); save(); });
@@ -92,6 +96,7 @@ function sanitize(settings) {
 }
 
 function refresh() {
+  updatePowerState();
   updateRate();
   elements.languageWarning.hidden = !(
     elements.sourceLanguage.value !== "auto" &&
@@ -113,7 +118,17 @@ function applyTheme() {
     : selected;
 }
 
-async function save() {
+function updatePowerState() {
+  const isEnabled = elements.enabled.checked;
+  document.querySelector("main").dataset.enabled = String(isEnabled);
+  elements.powerStatus.textContent = isEnabled ? "已開啟" : "已關閉";
+  elements.powerStatus.dataset.state = isEnabled ? "on" : "off";
+  elements.disabledBanner.hidden = isEnabled;
+  elements.testVoice.disabled = !isEnabled;
+  if (!isEnabled) window.speechSynthesis.cancel();
+}
+
+async function save(message = "設定已儲存") {
   await chrome.storage.sync.set({
     enabled: elements.enabled.checked,
     autoSpeak: elements.autoSpeak.checked,
@@ -123,7 +138,7 @@ async function save() {
     theme: elements.theme.value,
     speechRate: Number(elements.speechRate.value)
   });
-  elements.saved.textContent = "\u8a2d\u5b9a\u5df2\u5132\u5b58";
+  elements.saved.textContent = message;
   clearTimeout(save.timer);
   save.timer = setTimeout(() => { elements.saved.textContent = ""; }, 900);
 }

@@ -8,7 +8,7 @@
   --border: #dadce0;
   --divider: #edf0f2;
   --accent: #1a73e8;
-  --succcess: #137333;
+  --success: #137333;
   --warning: #b06000;
   color-scheme: light;
   font-family: Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
@@ -47,8 +47,16 @@ main {
 header {
   display: flex;
   align-items: center;
-  gap: 11px;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 15px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
 }
 
 .logo {
@@ -74,6 +82,95 @@ header p {
   margin: 3px 0 0;
   color: var(--text-secondary);
   font-size: 12px;
+}
+
+.power-control {
+  display: grid;
+  justify-items: end;
+  gap: 5px;
+  flex: 0 0 auto;
+  cursor: pointer;
+  user-select: none;
+}
+
+.power-control input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.power-status {
+  color: var(--success);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.power-status[data-state="off"] {
+  color: var(--text-muted);
+}
+
+.power-switch {
+  position: relative;
+  display: block;
+  width: 44px;
+  height: 24px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-hover);
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.power-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.35);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.power-control input:checked + .power-switch {
+  border-color: #1a73e8;
+  background: #d2e3fc;
+}
+
+:root[data-theme="dark"] .power-control input:checked + .power-switch {
+  background: #174ea6;
+}
+
+.power-control input:checked + .power-switch .power-thumb {
+  transform: translateX(20px);
+  background: #1a73e8;
+}
+
+.power-control input:focus-visible + .power-switch {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.disabled-banner {
+  display: grid;
+  gap: 3px;
+  margin-bottom: 11px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-subtle);
+}
+
+.disabled-banner strong {
+  color: var(--text);
+}
+
+.disabled-banner span {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .language-panel,
@@ -195,8 +292,13 @@ input[type="range"] {
   cursor: pointer;
 }
 
-.test-button:hover {
+.test-button:hover:not(:disabled) {
   background: var(--surface-hover);
+}
+
+.test-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .test-button:focus-visible,

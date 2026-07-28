@@ -26,8 +26,39 @@ const ALLOWED_LANGUAGE_CODES = new Set([
   "sv"
 ]);
 
+let extensionEnabled = true;
+
+chrome.runtime.onInstalled.addListener(() => syncEnabledState());
+chrome.runtime.onStartup.addListener(() => syncEnabledState());
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName !== "sync" || !changes.enabled) return;
+  extensionEnabled = changes.enabled.newValue !== false;
+  updateActionState();
+});
+
+syncEnabledState();
+
+async function syncEnabledState() {
+  const stored = await chrome.storage.sync.get({ enabled: true });
+  extensionEnabled = stored.enabled !== false;
+  await updateActionState();
+}
+
+async function updateActionState() {
+  await chrome.action.setBadgeText({ text: extensionEnabled ? "" : "OFF" });
+  await chrome.action.setBadgeBackgroundColor({ color: "#5f6368" });
+  await chrome.action.setTitle({
+    title: `即時多語朗讀翻譯（${extensionEnabled ? "已開啟" : "已關閉"}）`
+  });
+}
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message?.type !== "TRANSLATE_ONLINE") {
+    return false;
+  }
+
+  if (!extensionEnabled) {
+    sendResponse({ ok: false, error: "擴充功能目前已關閉。" });
     return false;
   }
 

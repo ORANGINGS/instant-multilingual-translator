@@ -7,14 +7,29 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <main>
+    <main data-enabled="true">
       <header>
-        <div class="logo" aria-hidden="true">A</div>
-        <div>
-          <h1>即時多語朗讀翻譯</h1>
-          <p>反白文字後自動朗讀與翻譯</p>
+        <div class="brand">
+          <div class="logo" aria-hidden="true">A</div>
+          <div>
+            <h1>即時多語朗讀翻譯</h1>
+            <p>反白文字後自動朗讀與翻譯</p>
+          </div>
         </div>
+
+        <label class="power-control" title="開啟或關閉擴充功能">
+          <span id="powerStatus" class="power-status" aria-live="polite">已開啟</span>
+          <input id="enabled" type="checkbox" aria-label="開啟或關閉擴充功能" />
+          <span class="power-switch" aria-hidden="true">
+            <span class="power-thumb"></span>
+          </span>
+        </label>
       </header>
+
+      <section id="disabledBanner" class="disabled-banner" hidden>
+        <strong>擴充功能已關閉</strong>
+        <span>目前不會偵測反白文字、播放語音或傳送翻譯請求。</span>
+      </section>
 
       <section class="language-panel" aria-label="語言設定">
         <label class="select-setting">
@@ -37,14 +52,6 @@
       </section>
 
       <section class="settings">
-        <label class="setting-row">
-          <span>
-            <strong>啟用擴充功能</strong>
-            <small>在一般網頁偵測反白文字</small>
-          </span>
-          <input id="enabled" type="checkbox" />
-        </label>
-
         <label class="setting-row">
           <span>
             <strong>自動播放原文</strong>
