@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-1.2.0-1a73e8">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.3.1-1a73e8">
   <img alt="Manifest V3" src="https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-137333">
   <img alt="Status" src="https://img.shields.io/badge/status-Beta-f9ab00">
@@ -24,6 +24,7 @@
 
 ## 主要功能
 
+- **一鍵開關**：從工具列設定視窗快速開啟或關閉擴充功能；關閉時停止偵測、朗讀與翻譯請求。
 - **反白即用**：雙擊單字或拖曳選取片語、句子後自動啟動。
 - **即時朗讀**：依來源語言選擇相符的系統語音並播放原文。
 - **多語言辨識**：預設自動偵測，也可手動指定來源語言。
@@ -98,6 +99,8 @@ git clone https://github.com/ORANGINGS/instant-multilingual-translator.git
 
 點擊 Chrome 工具列上的擴充功能圖示，可設定：
 
+- 開啟／關閉擴充功能；關閉時工具列圖示會顯示 `OFF`
+
 - 預設來源語言：自動偵測或指定語言
 - 翻譯目標語言
 - 自動播放原文
@@ -168,7 +171,7 @@ node --check popup.js
 
 ## 專案狀態
 
-目前版本為 **1.2.0 Beta**。歡迎透過 Issue 回報錯誤或提出功能建議。
+目前版本為 **1.3.1 Beta**。歡迎透過 Issue 回報錯誤或提出功能建議。
 
 ## License
 
