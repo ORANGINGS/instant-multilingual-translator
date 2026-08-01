@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version" src="https://img.shields.io/badge/version-1.3.1-1a73e8">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.4.0-1a73e8">
   <img alt="Manifest V3" src="https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-137333">
   <img alt="Status" src="https://img.shields.io/badge/status-Beta-f9ab00">
@@ -27,13 +27,28 @@
 - **一鍵開關**：從工具列設定視窗快速開啟或關閉擴充功能；關閉時停止偵測、朗讀與翻譯請求。
 - **反白即用**：雙擊單字或拖曳選取片語、句子後自動啟動。
 - **即時朗讀**：依來源語言選擇相符的系統語音並播放原文。
+- **英文重音強調**：單一英文單字先正常播放，再以慢速與略高音調重播，方便辨識語音引擎的自然重音。
 - **多語言辨識**：預設自動偵測，也可手動指定來源語言。
 - **自訂翻譯方向**：自行選擇要翻譯成繁中、英文、西班牙文或其他語言。
 - **多義詞與詞性**：除了主要翻譯，也顯示其他常見意思並依詞性分類。
 - **雙向播放**：原文與譯文各有獨立的播放按鈕。
 - **深色模式**：支援跟隨系統、淺色與深色三種外觀。
 - **免 API Key**：優先使用 Chrome 內建 AI；必要時使用線上備援。
-- **設定同步**：來源語言、目標語言、語速與外觀會透過 Chrome Storage 保存。
+- **設定同步**：來源語言、目標語言、語速、重音模式與外觀會透過 Chrome Storage 保存。
+
+## 英文重音強調模式
+
+開啟後，單一英文單字會依序播放：
+
+```text
+正常語速播放
+      ↓ 短暫停頓
+較慢語速＋略高音調重播
+```
+
+例如 `execution`、`inferred` 或 `unforeseen`，第二次播放會讓原本的自然重音更容易被聽見。片語、完整句子及非英文內容仍只播放一次，避免造成干擾。
+
+Web Speech API 的語速與音調控制是作用於整個朗讀片段，不能直接指定單一音節的重音。因此此模式是用正常與慢速重播協助辨識自然重音，而不是自行改寫字典重音。
 
 ## 支援語言
 
@@ -100,10 +115,10 @@ git clone https://github.com/ORANGINGS/instant-multilingual-translator.git
 點擊 Chrome 工具列上的擴充功能圖示，可設定：
 
 - 開啟／關閉擴充功能；關閉時工具列圖示會顯示 `OFF`
-
 - 預設來源語言：自動偵測或指定語言
 - 翻譯目標語言
 - 自動播放原文
+- 英文重音強調模式
 - 線上多義詞與備援
 - 外觀：跟隨系統、淺色、深色
 - 朗讀速度
@@ -122,6 +137,7 @@ git clone https://github.com/ORANGINGS/instant-multilingual-translator.git
 - `translate.googleapis.com/translate_a/single` 是非正式公開端點，Google 未保證其長期穩定性。
 - 很短的單字可能無法準確自動辨識語言，可改為手動指定來源語言。
 - 不同電腦安裝的語音不同，部分語言可能缺少自然的朗讀聲音。
+- 重音模式依賴系統 TTS 的自然重音，不能直接重新指定某個音節的字典重音。
 - Chrome 內部頁面、Chrome 線上應用程式商店及部分受限頁面不允許內容腳本執行。
 - Chrome 內建 Language Detector API 與 Translator API 主要適用於桌面版 Chrome 138 以上。
 - 單次選取上限為 500 個字元，避免誤選整頁文字。
@@ -137,6 +153,10 @@ instant-multilingual-translator/
 │  ├─ icon48.png
 │  └─ icon128.png
 ├─ background.js
+├─ context-guard.js
+├─ speech-stabilizer.js
+├─ stress-mode.js
+├─ stress-settings.js
 ├─ content.js
 ├─ popup.html
 ├─ popup.css
@@ -155,6 +175,10 @@ instant-multilingual-translator/
 
 ```bash
 node --check background.js
+node --check context-guard.js
+node --check speech-stabilizer.js
+node --check stress-mode.js
+node --check stress-settings.js
 node --check content.js
 node --check popup.js
 ```
@@ -171,7 +195,7 @@ node --check popup.js
 
 ## 專案狀態
 
-目前版本為 **1.3.1 Beta**。歡迎透過 Issue 回報錯誤或提出功能建議。
+目前版本為 **1.4.0 Beta**。歡迎透過 Issue 回報錯誤或提出功能建議。
 
 ## License
 
