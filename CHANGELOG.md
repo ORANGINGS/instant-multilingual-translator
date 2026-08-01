@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.2
+
+- 修正擴充功能更新或重新載入後，舊分頁出現 `Extension context invalidated` 與 `sendMessage` 錯誤。
+- 加入失效 context 防護，避免錯誤持續累積在 Chrome 擴充功能錯誤頁。
+- 偵測到失效 context 時會移除殘留翻譯視窗並停止語音。
+- 修正版 ZIP 另外將捲動與縮放監聽改為只在浮動視窗開啟時啟用，以降低常駐負擔。
+
 ## 1.3.1
 
 - 修正部分單字（例如 `solve`）顯示空白翻譯的問題。
