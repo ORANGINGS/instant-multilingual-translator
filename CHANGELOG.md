@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.3
+
+- 修正英文發音偶爾遺漏開頭音節，例如 `unforeseen` 只播放成 `foreseen`。
+- `cancel()` 後不再立即呼叫 `speak()`，改為等待 140ms 讓 Chrome／Windows 語音引擎完成切換。
+- 保留目前的 `SpeechSynthesisUtterance` 參考，避免播放期間被提早回收。
+- 連續點擊播放時只保留最後一次請求，避免多個語音互相取消或重疊。
+
 ## 1.3.2
 
 - 修正擴充功能更新或重新載入後，舊分頁出現 `Extension context invalidated` 與 `sendMessage` 錯誤。
