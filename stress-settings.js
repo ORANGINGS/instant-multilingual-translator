@@ -119,7 +119,7 @@
   title.textContent = "英文重音強調模式";
 
   const description = document.createElement("small");
-  description.textContent = "獨立開關；需要練習時才開啟，單字會再慢速重播";
+  description.textContent = "獨立開關；網頁上連按兩下 G 也可快速切換";
   copy.append(title, description);
 
   const switchWrap = document.createElement("span");
