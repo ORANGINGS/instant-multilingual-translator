@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "即時多語朗讀翻譯",
-  "version": "1.4.2",
-  "description": "雙擊或反白文字後立即朗讀與翻譯；連按兩下 G 可切換英文重音強調模式，並支援一鍵開關、自動辨識語言、多義詞與深色模式。",
+  "version": "1.4.3",
+  "description": "雙擊或反白文字後立即朗讀與翻譯；連按兩下 G 可開啟或關閉整個外掛，並支援英文重音練習、自動辨識語言、多義詞與深色模式。",
   "minimum_chrome_version": "138",
   "permissions": [
     "storage"
@@ -38,7 +38,7 @@
         "context-guard.js",
         "speech-stabilizer.js",
         "stress-mode.js",
-        "stress-shortcut.js",
+        "power-shortcut.js",
         "content.js"
       ],
       "run_at": "document_idle",
